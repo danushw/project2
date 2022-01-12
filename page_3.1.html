@@ -1,0 +1,50 @@
+<html>
+    <body>
+
+        <h1>Create:</h1>
+        Name: <input type="number" id="name" /></br>
+        Img: <input type="text" id="imgTxt" /></br>
+        
+        Genere:
+                <select id="genere">
+                <option value="a">a</option>
+                <option value="b">b</option>
+                <option value="c">c</option>
+
+                </select> </br></br>
+
+            <input type="button" value="Create" onclick="createMovie()">
+        <script>
+            //post
+
+            async function createMovie() {
+
+                let resp = await fetch("https://api.tvmaze.com/shows", {
+                    method: "post",
+                    body: JSON.stringify(obj),
+                    headers: {"content-type": "application/json"}
+                });
+                console.log(resp);
+
+                if (resp.ok === true) {
+                    let data = await resp.json();
+                    console.log(data); 
+                } else {
+                    console.log("Error");
+                }
+                    
+                }
+
+
+            
+
+            
+            id = JSON.parse(sessionStorage.getItem('id'));
+            if (id === null)
+                console.log('no id');
+            else
+                console.log(id);
+
+        </script>
+    </body>
+</html>

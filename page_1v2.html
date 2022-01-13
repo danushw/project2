@@ -1,0 +1,93 @@
+<html>
+    <body onload="getData()">
+        <h1>Movies Table</h1>
+        <table id="table" border= 1>         
+            <tr> <th> Img </th> <th> Name </th> <th> Genere </th> <th> Edit </th><th> Delete </th></tr>          
+        </table> </br></br>
+        <input type = "button" value = "Create" onclick="createData()">
+    </br></br>
+
+
+    
+    
+
+      
+
+        <script>
+            //data.image.medium
+
+            const url = "https://api.tvmaze.com/shows";
+            async function getData() {
+
+
+
+                //  fetching data   //
+                let resp = await fetch(url);
+                if (resp.ok) {
+                    let data = await resp.json();
+                    console.log(data);
+                    let finalData = data.slice(0,3);
+                    console.log(finalData);
+                    
+                
+                    finalData.forEach((data) => { 
+                
+                        
+                let table = document.getElementById("table");
+                let tableRow = document.createElement("tr");
+                // Creating table elements //
+                let tabelDataImg = document.createElement("td");
+                let tableDataName = document.createElement("td");
+                let tableDataGenres = document.createElement("td");
+                console.log(finalData);
+
+                //  creating image   //
+                
+
+                tabelDataImg.innerHTML = `<img src=${data.image.medium} height="100px" width="100px">`;
+                tableDataName.innerHTML = data.name;
+                tableDataGenres.innerHTML = data.genres;
+
+                //  Creating buttons //
+                let tableEdit = document.createElement("td");
+                tableEdit.innerHTML = `<input type = "button" value = "edit" onclick="editData(${data.id})">`;                   
+              
+                let tableDelete = document.createElement("td");  
+                tableDelete.innerHTML = `<input type = "button" value = "delete" onclick="delData(${data.id})">`;              
+               
+                
+
+
+                tableRow.append(tabelDataImg, tableDataName, tableDataGenres, tableEdit,tableDelete);
+                table.appendChild(tableRow);
+                             
+            })
+            }
+            }
+            function createData(id){
+
+                sessionStorage.setItem('id',id);
+                    window.location.href = `page_3.1.html`;
+
+            }
+            async function delData(id) {
+                console.log(url);
+                console.log(id);
+                let resp = await fetch(url + id, {
+                    method: "Delete"});
+                       }                  
+                    
+                          
+
+            function editData(id){
+                sessionStorage.setItem('id',id);
+                window.location.href = `page_2.1.html`;
+                
+            }
+
+         
+            
+
+        </script>
+    </body>
+</html>
